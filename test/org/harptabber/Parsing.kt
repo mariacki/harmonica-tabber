@@ -1,6 +1,6 @@
 package org.harptabber
 
-import org.harptabber.parsing.DiatonicParser
+import org.harptabber.parsing.TablatureParser
 import org.harptabber.translation.Note
 import org.harptabber.translation.blow
 import org.harptabber.translation.draw
@@ -14,7 +14,7 @@ class Parsing
 {
     @test fun `Blow notes are parsed`()
     {
-        val providedNotes = DiatonicParser().parse("1")
+        val providedNotes = TablatureParser().parseLine("1")
 
         assertTrue(providedNotes.count() == 1)
         assertEquals(blow(1), providedNotes[0]);
@@ -22,8 +22,8 @@ class Parsing
 
     @test fun `Multiple blow notes are parsed`()
     {
-        val providedNotes = DiatonicParser()
-            .parse("1 10 2 3")
+        val providedNotes = TablatureParser()
+            .parseLine("1 10 2 3")
 
         assertParsed(
             providedNotes,
@@ -36,22 +36,22 @@ class Parsing
 
     @test fun `White chars are ignored`()
     {
-        val providedNotes = DiatonicParser()
-            .parse("1   \t \t 2")
+        val providedNotes = TablatureParser()
+            .parseLine("1   \t \t 2")
     }
 
     @test fun `Line beginning with # char are ignored`()
     {
-        val providedNotes = DiatonicParser()
-            .parse("# This is a line commented out")
+        val providedNotes = TablatureParser()
+            .parseLine("# This is a line commented out")
 
         assertEquals(0, providedNotes.size)
     }
 
     @test fun `Draw notes are parsed`()
     {
-        val providedNotes = DiatonicParser()
-            .parse("(1) (2) (10)  (3)")
+        val providedNotes = TablatureParser()
+            .parseLine("(1) (2) (10)  (3)")
 
         assertParsed(
             providedNotes,
@@ -64,8 +64,8 @@ class Parsing
 
     @test fun `Blow and draw notes are parsed`()
     {
-        val providedNotes = DiatonicParser()
-            .parse("1 (2) (3)    4")
+        val providedNotes = TablatureParser()
+            .parseLine("1 (2) (3)    4")
 
         assertParsed(
             providedNotes,
