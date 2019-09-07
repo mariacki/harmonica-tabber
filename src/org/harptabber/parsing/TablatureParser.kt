@@ -16,11 +16,13 @@ class TablatureParser
 
     fun parseLine(tablature: String): Array<Note> = when (true) {
         isCommented(tablature) -> emptyArray()
-        else -> tablature
+        else -> lineToNotes(tablature)
+    }
+
+    private fun lineToNotes(tablature: String): Array<Note>  = tablature
             .split(whiteSpace.toRegex())
             .map { parseSingleToken(it) }
             .toTypedArray()
-    }
 
     private fun isCommented(tablature: String) = tablature[0] == commentMarker
 
