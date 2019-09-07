@@ -3,6 +3,7 @@ package org.harptabber
 import org.harptabber.parsing.DiatonicParser
 import org.harptabber.translation.Note
 import org.harptabber.translation.blow
+import org.harptabber.translation.draw
 import org.junit.jupiter.api.TestInstance
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -45,6 +46,34 @@ class Parsing
             .parse("# This is a line commented out")
 
         assertEquals(0, providedNotes.size)
+    }
+
+    @test fun `Draw notes are parsed`()
+    {
+        val providedNotes = DiatonicParser()
+            .parse("(1) (2) (10)  (3)")
+
+        assertParsed(
+            providedNotes,
+            draw(1),
+            draw(2),
+            draw(10),
+            draw(3)
+        )
+    }
+
+    @test fun `Blow and draw notes are parsed`()
+    {
+        val providedNotes = DiatonicParser()
+            .parse("1 (2) (3)    4")
+
+        assertParsed(
+            providedNotes,
+            blow(1),
+            draw(2),
+            draw(3),
+            blow(4)
+        )
     }
 
     private fun assertParsed(providedNotes: Array<Note>, vararg expectedNotes: Note)
