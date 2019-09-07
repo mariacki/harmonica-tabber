@@ -1,0 +1,13 @@
+./.idea/
+./out/
+.idea/
+.idea/codeStyles
+.idea/kotlinc.xml
+.idea/libraries
+.idea/misc.xml
+.idea/modules.xml
+.idea/$PRODUCT_WORKSPACE_FILE$
+.idea/uiDesigner.xml
+.idea/vcs.xml
+.idea/workspace.xml
+out
