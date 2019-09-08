@@ -65,7 +65,7 @@ class Parsing
     @test fun `Blow and draw notes are parsed`()
     {
         val providedNotes = TablatureParser()
-            .parseLine("1 (2) (3)    4")
+            .parseLine("1 (2) (3) 4")
 
         assertParsed(
             providedNotes,
@@ -74,6 +74,14 @@ class Parsing
             draw(3),
             blow(4)
         )
+    }
+
+    @test fun `Empty lines are skipped`()
+    {
+        val providedNotes = TablatureParser()
+            .parseLine("");
+
+        assertTrue(providedNotes.isEmpty())
     }
 
     private fun assertParsed(providedNotes: Array<Note>, vararg expectedNotes: Note)

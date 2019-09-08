@@ -1,5 +1,7 @@
 package org.harptabber.translation
 
+import kotlin.math.min
+
 class TwoNoteTranslation(val left: Note, val right: Note):
     NoteTranslation
 {
@@ -7,10 +9,8 @@ class TwoNoteTranslation(val left: Note, val right: Note):
         val distanceToLeft = previouslyPlayed.distanceTo(left)
         val distanceToRight = previouslyPlayed.distanceTo(right)
 
-        return when {
-            distanceToLeft < distanceToRight -> left
-            previouslyPlayed == left -> left
-            previouslyPlayed == right -> right
+        return when(min(distanceToLeft, distanceToRight)) {
+            distanceToLeft -> left
             else -> right
         }
     }

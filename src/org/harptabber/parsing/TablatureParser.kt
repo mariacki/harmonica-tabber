@@ -15,14 +15,21 @@ class TablatureParser
     private val holeNumberPattern = "([1-9]0?)".toRegex()
 
     fun parseLine(tablature: String): Array<Note> = when (true) {
-        isCommented(tablature) -> emptyArray()
+        tablature.isEmpty() -> emptyArray()
+        isCommented(tablature)  -> emptyArray()
         else -> lineToNotes(tablature)
     }
 
+    private fun isEmpty(tablature: String): Boolean
+    {
+        return tablature.isEmpty()
+    }
+
     private fun lineToNotes(tablature: String): Array<Note>  = tablature
-            .split(whiteSpace.toRegex())
-            .map { parseSingleToken(it) }
-            .toTypedArray()
+        .split(whiteSpace.toRegex())
+        .filter {!it.isEmpty()}
+        .map { parseSingleToken(it) }
+        .toTypedArray()
 
     private fun isCommented(tablature: String) = tablature[0] == commentMarker
 

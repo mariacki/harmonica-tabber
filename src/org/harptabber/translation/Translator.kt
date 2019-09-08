@@ -26,6 +26,6 @@ class Translator(vararg pairs: Pair<Note, NoteTranslation>) {
 
     private fun notFound(diatonicNote: Note): NoteTranslation
     {
-        throw IllegalArgumentException()
+        throw IllegalArgumentException("Could not find mapping for note $diatonicNote")
     }
 }
